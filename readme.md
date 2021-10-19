@@ -11,7 +11,7 @@ Monitoring the Tesla Powerwall with the TICK framework
 
 ### Docker Containers
 
-* Edit `powerwall.yml` and loook for the section under `pypowerall` and enter the following details for your Powerwall:
+* Edit `powerwall.yml` and look for the section under `pypowerall` and update the following details for your Powerwall:
 ```yml
             PW_PASSWORD: "password"
             PW_EMAIL: "email@example.com"
