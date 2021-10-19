@@ -1,4 +1,4 @@
-# powerwall_monitor
+# Powerwall_Monitor
 Monitoring the Tesla Powerwall with the TICK framework
 
 ![Imgur](https://i.imgur.com/TuwFYTs.png)
@@ -8,16 +8,24 @@ Monitoring the Tesla Powerwall with the TICK framework
 * docker-compose
 
 ## Installation
-* edit `powerwall.yml` and replace `192.168.91.1` with your powerwall IP
-* create a file called `.env.cookieproxy` to define the `POWERWALL_PASSWORD` which
-  is used for authentication. This should be a single line that looks like this:
-	```
-	POWERWALL_PASSWORD=YourPowerwallPassword
-	```
-* start the docker containers: `docker-compose -f powerwall.yml up -d`
-* connect to the Influx database shell: `docker exec -it influxdb influx`
-* at the database prompt, enter the following commands:
-	```
+
+### Docker Containers
+
+* Edit `powerwall.yml` and loook for the section under `pypowerall` and enter the following details for your Powerwall:
+```yml
+            PW_PASSWORD: "password"
+            PW_EMAIL: "email@example.com"
+            PW_HOST: "192.168.91.1"
+            PW_TIMEZONE: "Australia/Adelaide"
+```
+
+* Start the docker containers: `docker-compose -f powerwall.yml up -d`
+
+### InfluxDB
+
+* Connect to the Influx database shell: `docker exec -it influxdb influx`
+* At the database prompt, you will need to enter (copy/paste) the following commands after you adjust the timezone (tz) as appropriate:
+	```sql
 	USE powerwall
 	CREATE RETENTION POLICY raw ON powerwall duration 3d replication 1
 	ALTER RETENTION POLICY autogen ON powerwall duration 365d
@@ -29,22 +37,31 @@ Monitoring the Tesla Powerwall with the TICK framework
 	CREATE CONTINUOUS QUERY cq_daily ON powerwall RESAMPLE EVERY 1h BEGIN SELECT sum(home) AS home, sum(solar) AS solar, sum(from_pw) AS from_pw, sum(to_pw) AS to_pw, sum(from_grid) AS from_grid, sum(to_grid) AS to_grid INTO powerwall.daily.:MEASUREMENT FROM powerwall.kwh.http GROUP BY time(1d), month, year tz('Australia/Adelaide') END 
 	CREATE CONTINUOUS QUERY cq_monthly ON powerwall RESAMPLE EVERY 1h BEGIN SELECT sum(home) AS home, sum(solar) AS solar, sum(from_pw) AS from_pw, sum(to_pw) AS to_pw, sum(from_grid) AS from_grid, sum(to_grid) AS to_grid INTO powerwall.monthly.:MEASUREMENT FROM powerwall.daily.http GROUP BY time(365d), month, year END
 	```
-* open up Grafana in the browser at `http://<server ip>:9000` and login with `admin/admin`
-* from `Configuration\Data Sources`, add `InfluxDB` database with:
+
+Note: the database queries are set to use `Australia/Adelaide` as timezone. Edit the database commands above to replace `Australia/Adelaide` with your own timezone.
+
+### Grafana Setup
+
+* Open up Grafana in a browser at `http://<server ip>:9000` and login with `admin/admin`
+* From `Configuration\Data Sources`, add `InfluxDB` database with:
   - name: `InfluxDB`
   - url: `http://influxdb:8086`
   - database: `powerwall`
   - min time interval: `5s`
-* from `Configuration\Data Sources`, add `Sun and Moon` database with:
+* From `Configuration\Data Sources`, add `Sun and Moon` database with:
   - name: `Sun and Moon`
   - your latitude and longitude
-* from `Dashboard\Manage`, select `Import`, and upload `dashboard.json`
+* Edit `dashboard.json` to replace `Australia/Adelaide` with your own timezone.
+* From `Dashboard\Manage`, select `Import`, and upload `dashboard.json`
 
-Note: the database queries are set to use `Australia/Adelaide` as timezone. Edit the database commands above and `dashboard.json` to replace `Australia/Adelaide` with your own timezone.
+### Notes
 
-Note also: influxdb does not run reliably on older models of Raspberry Pi, resulting in the Docker container terminating with `error 139`.  
+* The database queries and dashboard are set to use `Australia/Adelaide` as the timezone. Remember to edit the database commands and the `dashboard.json` file to replace `Australia/Adelaide` with your own timezone.
+
+* InfluxDB does not run reliably on older models of Raspberry Pi, resulting in the Docker container terminating with `error 139`.  
 
 Enjoy!
+
 ---
 If you found this useful, say _Thank You!_ [with a beer.](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mihailescu2m%40gmail%2Ecom&lc=AU&item_name=memeka&item_number=odroid&currency_code=AUD&bn=PP%2DDonationsBF%3Abtn_donate_LG%2Egif%3ANonHosted)
 
