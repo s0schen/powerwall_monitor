@@ -2,7 +2,7 @@ version: "3.5"
 
 services:
     influxdb:
-        image: influxdb:1.7
+        image: influxdb:1.8
         container_name: influxdb
         hostname: influxdb
         restart: always
@@ -20,7 +20,7 @@ services:
               mode: host
 
     pypowerwall:
-        image: jasonacox/pypowerwall:0.0.2
+        image: jasonacox/pypowerwall:latest
         container_name: pypowerwall
         hostname: pypowerwall
         restart: always
@@ -36,7 +36,7 @@ services:
             PW_DEBUG: "no"
 
     telegraf:
-        image: telegraf:1.12
+        image: telegraf:latest
         container_name: telegraf
         hostname: telegraf
         restart: always
@@ -50,7 +50,7 @@ services:
             - pypowerwall
 
     grafana:
-        image: grafana/grafana:6.5.1-ubuntu
+        image: grafana/grafana:latest-ubuntu
         container_name: grafana
         hostname: grafana
         restart: always
