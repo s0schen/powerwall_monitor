@@ -33,7 +33,7 @@ bash tz.sh "America/Los_Angeles"
             PW_EMAIL: "email@example.com"
             PW_HOST: "192.168.91.1"
             PW_TIMEZONE: "America/Los_Angeles"
-			PW_DEBUG: "yes"
+            PW_DEBUG: "yes"
 
 ```
 
