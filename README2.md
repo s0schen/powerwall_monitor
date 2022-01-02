@@ -18,7 +18,7 @@ Clone this repo to your local host that will run the dashboard:
 git clone https://github.com/jasonacox/powerwall_monitor.git
 ```
 
-You will want to set your local timezone by editing `powerwall.yml`, `influxdb.sql` and `dashboard.json` or you can use this hand replacement script.  A list of timezones is available [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+You will want to set your local timezone by editing `powerwall.yml`, `influxdb.sql` and `dashboard.json` or you can use this handy update script.  A list of timezones is available [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
 
 ```bash
 # Replace with your timezone
