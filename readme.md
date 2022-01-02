@@ -33,6 +33,8 @@ bash tz.sh "America/Los_Angeles"
             PW_EMAIL: "email@example.com"
             PW_HOST: "192.168.91.1"
             PW_TIMEZONE: "America/Los_Angeles"
+			PW_DEBUG: "yes"
+
 ```
 
 * Start the docker containers
@@ -43,8 +45,8 @@ bash tz.sh "America/Los_Angeles"
 
 ### InfluxDB
 
-* Connect to the Influx database shell: `docker exec -it influxdb influx < influxdb.sql`
-* At the database prompt, you will need to enter (copy/paste) the following commands after you adjust the timezone (tz) as appropriate:
+* Connect to the Influx database shell: `docker exec -it influxdb influx`
+* At the database prompt, you will need to enter (copy/paste) the following commands after you adjust the timezone (tz) as appropriate.  If you are on a Mac you can `pbcopy < influxdb.sql` to grab the edited version into your clipboard for pasting or you can grab the commands below (also in [influxdb.sql](influxdb.sql)):
 	```sql
 	USE powerwall
 	CREATE RETENTION POLICY raw ON powerwall duration 3d replication 1
@@ -63,23 +65,36 @@ Note: the database queries are set to use `America/Los_Angeles` as timezone. Use
 ### Grafana Setup
 
 * Open up Grafana in a browser at `http://<server ip>:9000` and login with `admin/admin`
-* From `Configuration\Data Sources`, add `InfluxDB` database with:
-  - name: `InfluxDB`
-  - url: `http://influxdb:8086`
-  - database: `powerwall`
-  - min time interval: `5s`
-* From `Configuration\Data Sources`, add `Sun and Moon` database with:
-  - name: `Sun and Moon`
-  - your latitude and longitude
-* Edit `dashboard.json` to replace `America/Los_Angeles` with your own timezone.
-* From `Dashboard\Manage`, select `Import`, and upload `dashboard.json`
+
+* From `Configuration\Data Sources` add `InfluxDB` database with:
+  - Name: `InfluxDB`
+  - URL: `http://influxdb:8086`
+  - Database: `powerwall`
+  - Min time interval: `5s`
+  - Click "Save & test" button
+
+* From `Configuration\Data Sources` add `Sun and Moon` database with:
+  - Name: `Sun and Moon`
+  - Enter your latitude and longitude (some browsers will use your location)
+  - Click "Save & test" button
+
+* From `Dashboard\Manage` (or `Dashboard\Browse`), select `Import`, and upload `dashboard.json`
 
 ### Notes
 
-* The database queries and dashboard are set to use `America/Los_Angeles` as the timezone. Remember to edit the database commands and the `dashboard.json` file to replace `America/Los_Angeles` with your own timezone.
+* The database queries and dashboard are set to use `America/Los_Angeles` as the timezone. Remember to edit the database commands [influxdb.sql](influxdb.sql), [powerwall.yml](powerwall.yml), and [dashboard.json](dashboard.json) to replace `America/Los_Angeles` with your own timezone.
 
 * InfluxDB does not run reliably on older models of Raspberry Pi, resulting in the Docker container terminating with `error 139`.  
 
+### Troubleshooting Tips
+
+Check the logs of the services using:
+```bash
+	docker logs -f pypowerwall
+	docker logs -f telegraf
+	docker logs -f influxdb
+	docker logs -f grafana
+```
 
 ### Credits
 
