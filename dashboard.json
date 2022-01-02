@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 4,
+  "id": 1,
   "links": [],
   "panels": [
     {
@@ -115,7 +115,7 @@
           "measurement": "http",
           "orderByTime": "ASC",
           "policy": "autogen",
-          "query": "SELECT \"mean_load_instant_power\" FROM \"http\" WHERE $timeFilter tz('Australia/Adelaide')",
+          "query": "SELECT \"mean_load_instant_power\" FROM \"http\" WHERE $timeFilter tz('America/Los_Angeles')",
           "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
@@ -134,7 +134,7 @@
             ]
           ],
           "tags": [],
-          "tz": "Australia/Adelaide"
+          "tz": "America/Los_Angeles"
         },
         {
           "alias": "Solar Energy",
@@ -168,7 +168,7 @@
             ]
           ],
           "tags": [],
-          "tz": "Australia/Adelaide"
+          "tz": "America/Los_Angeles"
         },
         {
           "alias": "Powerwall",
@@ -185,7 +185,7 @@
           "measurement": "http",
           "orderByTime": "ASC",
           "policy": "autogen",
-          "query": "SELECT mean(from_pw) - mean(to_pw) FROM autogen.http WHERE $timeFilter GROUP BY time(5m) tz('Australia/Adelaide')",
+          "query": "SELECT mean(from_pw) - mean(to_pw) FROM autogen.http WHERE $timeFilter GROUP BY time(5m) tz('America/Los_Angeles')",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series",
@@ -204,7 +204,7 @@
             ]
           ],
           "tags": [],
-          "tz": "Australia/Adelaide"
+          "tz": "America/Los_Angeles"
         },
         {
           "alias": "Grid Usage",
@@ -227,7 +227,7 @@
           "measurement": "http",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(from_grid) - mean(to_grid) FROM autogen.http WHERE $timeFilter GROUP BY time(5m) tz('Australia/Adelaide')",
+          "query": "SELECT mean(from_grid) - mean(to_grid) FROM autogen.http WHERE $timeFilter GROUP BY time(5m) tz('America/Los_Angeles')",
           "rawQuery": true,
           "refId": "D",
           "resultFormat": "time_series",
@@ -246,7 +246,7 @@
             ]
           ],
           "tags": [],
-          "tz": "Australia/Adelaide"
+          "tz": "America/Los_Angeles"
         },
         {
           "alias": "Charge",
@@ -294,7 +294,7 @@
             ]
           ],
           "tags": [],
-          "tz": "Australia/Adelaide"
+          "tz": "America/Los_Angeles"
         },
         {
           "datasource": "Sun and Moon",
@@ -327,8 +327,8 @@
           "format": "watt",
           "label": null,
           "logBase": 1,
-          "max": "5500",
-          "min": "-5500",
+          "max": "9000",
+          "min": "-9000",
           "show": true
         },
         {
@@ -399,7 +399,7 @@
           "measurement": "http",
           "orderByTime": "ASC",
           "policy": "autogen",
-          "query": "SELECT last(\"percentage\")  /0.95 - 5/0.95 FROM \"http\" WHERE $timeFilter tz('Australia/Adelaide')",
+          "query": "SELECT last(\"percentage\")  /0.95 - 5/0.95 FROM \"http\" WHERE $timeFilter tz('America/Los_Angeles')",
           "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
@@ -424,7 +424,7 @@
             ]
           ],
           "tags": [],
-          "tz": "Australia/Adelaide"
+          "tz": "America/Los_Angeles"
         }
       ],
       "timeFrom": null,
@@ -501,7 +501,7 @@
           "measurement": "http",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT  (1+from_solar/abs(from_solar))*from_solar/2  FROM (SELECT integral(solar)/1000/3600 - integral(to_pw)/1000/3600 - integral(to_grid)/1000/3600  AS from_solar FROM autogen.http WHERE  $timeFilter tz('Australia/Adelaide'))",
+          "query": "SELECT  (1+from_solar/abs(from_solar))*from_solar/2  FROM (SELECT integral(solar)/1000/3600 - integral(to_pw)/1000/3600 - integral(to_grid)/1000/3600  AS from_solar FROM autogen.http WHERE  $timeFilter tz('America/Los_Angeles'))",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -520,7 +520,7 @@
             ]
           ],
           "tags": [],
-          "tz": "Australia/Adelaide"
+          "tz": "America/Los_Angeles"
         },
         {
           "alias": "From Powerwall",
@@ -551,7 +551,7 @@
             ]
           ],
           "tags": [],
-          "tz": "Australia/Adelaide"
+          "tz": "America/Los_Angeles"
         },
         {
           "alias": "From Grid",
@@ -582,7 +582,7 @@
             ]
           ],
           "tags": [],
-          "tz": "Australia/Adelaide"
+          "tz": "America/Los_Angeles"
         }
       ],
       "timeFrom": null,
@@ -656,7 +656,7 @@
           "measurement": "http",
           "orderByTime": "ASC",
           "policy": "kwh",
-          "query": "SELECT sum(\"solar\")   * 0.179 FROM \"daily\".\"http\" WHERE $timeFilter GROUP BY time(1d) tz('Australia/Adelaide')",
+          "query": "SELECT sum(\"solar\")   * 0.179 FROM \"daily\".\"http\" WHERE $timeFilter GROUP BY time(1d) tz('America/Los_Angeles')",
           "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
@@ -681,7 +681,7 @@
             ]
           ],
           "tags": [],
-          "tz": "Australia/Adelaide"
+          "tz": "America/Los_Angeles"
         },
         {
           "alias": "combined",
@@ -703,7 +703,7 @@
           "measurement": "http",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT s + g FROM (SELECT sum(solar)  * 0.358 AS s, sum(to_grid) * 0.179 AS g FROM kwh.http WHERE  $timeFilter tz('Australia/Adelaide'))",
+          "query": "SELECT s + g FROM (SELECT sum(solar)  * 0.358 AS s, sum(to_grid) * 0.179 AS g FROM kwh.http WHERE  $timeFilter tz('America/Los_Angeles'))",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -736,7 +736,7 @@
           "measurement": "http",
           "orderByTime": "ASC",
           "policy": "kwh",
-          "query": "SELECT \"from_pw\"   * 0.358 FROM \"kwh\".\"http\" WHERE $timeFilter tz('Australia/Adelaide')",
+          "query": "SELECT \"from_pw\"   * 0.358 FROM \"kwh\".\"http\" WHERE $timeFilter tz('America/Los_Angeles')",
           "rawQuery": false,
           "refId": "C",
           "resultFormat": "time_series",
@@ -757,7 +757,7 @@
             ]
           ],
           "tags": [],
-          "tz": "Australia/Adelaide"
+          "tz": "America/Los_Angeles"
         }
       ],
       "thresholds": [],
@@ -850,7 +850,7 @@
       "default_title_for_rows": "Metric",
       "font_size": ".9rem",
       "gridPos": {
-        "h": 4,
+        "h": 5,
         "w": 5,
         "x": 0,
         "y": 16
@@ -1169,7 +1169,7 @@
           "measurement": "http",
           "orderByTime": "ASC",
           "policy": "autogen",
-          "query": "SELECT integral(\"load_instant_power\")  / 1000 / 3600 FROM \"http\" WHERE $timeFilter GROUP BY time(1h) tz('Australia/Adelaide')",
+          "query": "SELECT integral(\"load_instant_power\")  / 1000 / 3600 FROM \"http\" WHERE $timeFilter GROUP BY time(1h) tz('America/Los_Angeles')",
           "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1194,7 +1194,7 @@
             ]
           ],
           "tags": [],
-          "tz": "Australia/Adelaide"
+          "tz": "America/Los_Angeles"
         }
       ],
       "thresholds": "",
@@ -1282,7 +1282,7 @@
           "measurement": "http",
           "orderByTime": "ASC",
           "policy": "autogen",
-          "query": "SELECT integral(\"battery_instant_power\")  / 1000 / 3600 FROM \"http\" WHERE (\"battery_instant_power\" > 0) AND $timeFilter tz('Australia/Adelaide')",
+          "query": "SELECT integral(\"battery_instant_power\")  / 1000 / 3600 FROM \"http\" WHERE (\"battery_instant_power\" > 0) AND $timeFilter tz('America/Los_Angeles')",
           "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1307,7 +1307,7 @@
             ]
           ],
           "tags": [],
-          "tz": "Australia/Adelaide"
+          "tz": "America/Los_Angeles"
         }
       ],
       "thresholds": "",
@@ -1420,7 +1420,7 @@
             ]
           ],
           "tags": [],
-          "tz": "Australia/Adelaide"
+          "tz": "America/Los_Angeles"
         }
       ],
       "thresholds": "",
@@ -1534,7 +1534,7 @@
             ]
           ],
           "tags": [],
-          "tz": "Australia/Adelaide"
+          "tz": "America/Los_Angeles"
         }
       ],
       "thresholds": "",
@@ -1624,7 +1624,7 @@
           "measurement": "http",
           "orderByTime": "ASC",
           "policy": "autogen",
-          "query": "SELECT integral(\"battery_instant_power\")  / -1000 / 3600 FROM \"http\" WHERE (\"battery_instant_power\" <= 0) AND $timeFilter GROUP BY time(1h) tz('Australia/Adelaide')",
+          "query": "SELECT integral(\"battery_instant_power\")  / -1000 / 3600 FROM \"http\" WHERE (\"battery_instant_power\" <= 0) AND $timeFilter GROUP BY time(1h) tz('America/Los_Angeles')",
           "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1649,7 +1649,7 @@
             ]
           ],
           "tags": [],
-          "tz": "Australia/Adelaide"
+          "tz": "America/Los_Angeles"
         }
       ],
       "thresholds": "",
@@ -1737,7 +1737,7 @@
           "measurement": "http",
           "orderByTime": "ASC",
           "policy": "autogen",
-          "query": "SELECT integral(\"site_instant_power\",1m)  / -1000 / 3600 * 60 FROM \"http\" WHERE (\"site_instant_power\" < 0) AND $timeFilter GROUP BY time(1h) tz('Australia/Adelaide')",
+          "query": "SELECT integral(\"site_instant_power\",1m)  / -1000 / 3600 * 60 FROM \"http\" WHERE (\"site_instant_power\" < 0) AND $timeFilter GROUP BY time(1h) tz('America/Los_Angeles')",
           "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1762,7 +1762,7 @@
             ]
           ],
           "tags": [],
-          "tz": "Australia/Adelaide"
+          "tz": "America/Los_Angeles"
         }
       ],
       "thresholds": "",
@@ -1788,7 +1788,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 20
+        "y": 21
       },
       "id": 22,
       "panels": [],
@@ -1809,7 +1809,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 21
+        "y": 22
       },
       "hiddenSeries": false,
       "id": 24,
@@ -1856,7 +1856,7 @@
           "measurement": "http",
           "orderByTime": "ASC",
           "policy": "kwh",
-          "query": "SELECT sum(\"home\") FROM \"kwh\".\"http\" WHERE $timeFilter GROUP BY time(1d) fill(0) tz('Australia/Adelaide')",
+          "query": "SELECT sum(\"home\") FROM \"kwh\".\"http\" WHERE $timeFilter GROUP BY time(1d) fill(0) tz('America/Los_Angeles')",
           "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1875,7 +1875,7 @@
             ]
           ],
           "tags": [],
-          "tz": "Australia/Adelaide"
+          "tz": "America/Los_Angeles"
         }
       ],
       "thresholds": [],
@@ -1934,7 +1934,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 21
+        "y": 22
       },
       "hiddenSeries": false,
       "id": 25,
@@ -2004,7 +2004,7 @@
               "value": "0"
             }
           ],
-          "tz": "Australia/Adelaide"
+          "tz": "America/Los_Angeles"
         }
       ],
       "thresholds": [],
@@ -2063,7 +2063,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 29
+        "y": 30
       },
       "hiddenSeries": false,
       "id": 26,
@@ -2127,7 +2127,7 @@
             ]
           ],
           "tags": [],
-          "tz": "Australia/Adelaide"
+          "tz": "America/Los_Angeles"
         }
       ],
       "thresholds": [],
@@ -2189,7 +2189,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 29
+        "y": 30
       },
       "hiddenSeries": false,
       "id": 27,
@@ -2240,7 +2240,7 @@
           "measurement": "http",
           "orderByTime": "ASC",
           "policy": "kwh",
-          "query": "SELECT sum(\"from_grid\") FROM \"daily\".\"http\" WHERE $timeFilter GROUP BY time(1d) fill(0) tz('Australia/Adelaide')",
+          "query": "SELECT sum(\"from_grid\") FROM \"daily\".\"http\" WHERE $timeFilter GROUP BY time(1d) fill(0) tz('America/Los_Angeles')",
           "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
@@ -2259,7 +2259,7 @@
             ]
           ],
           "tags": [],
-          "tz": "Australia/Adelaide"
+          "tz": "America/Los_Angeles"
         },
         {
           "alias": "To Grid",
@@ -2280,7 +2280,7 @@
           "measurement": "http",
           "orderByTime": "ASC",
           "policy": "kwh",
-          "query": "SELECT sum(\"to_grid\")  * -1 FROM \"daily\".\"http\" WHERE $timeFilter GROUP BY time(1d) fill(0) tz('Australia/Adelaide')",
+          "query": "SELECT sum(\"to_grid\")  * -1 FROM \"daily\".\"http\" WHERE $timeFilter GROUP BY time(1d) fill(0) tz('America/Los_Angeles')",
           "rawQuery": false,
           "refId": "B",
           "resultFormat": "time_series",
@@ -2305,7 +2305,7 @@
             ]
           ],
           "tags": [],
-          "tz": "Australia/Adelaide"
+          "tz": "America/Los_Angeles"
         }
       ],
       "thresholds": [],
@@ -2349,9 +2349,853 @@
         "align": false,
         "alignLevel": null
       }
+    },
+    {
+      "aliasColors": {
+        "Solar Energy": "yellow"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 0,
+        "y": 38
+      },
+      "hiddenSeries": false,
+      "id": 32,
+      "interval": "",
+      "legend": {
+        "avg": false,
+        "current": false,
+        "hideEmpty": false,
+        "hideZero": false,
+        "max": true,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "A",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "http",
+          "orderByTime": "ASC",
+          "policy": "raw",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "A_Voltage"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "B",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "http",
+          "orderByTime": "ASC",
+          "policy": "raw",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "B_Voltage"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "C",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "http",
+          "orderByTime": "ASC",
+          "policy": "raw",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "C_Voltage"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "D",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "http",
+          "orderByTime": "ASC",
+          "policy": "raw",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "D_Voltage"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "String Voltage",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "volt",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {
+        "Solar Energy": "yellow"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 8,
+        "y": 38
+      },
+      "hiddenSeries": false,
+      "id": 33,
+      "interval": "",
+      "legend": {
+        "avg": false,
+        "current": false,
+        "hideEmpty": false,
+        "hideZero": false,
+        "max": true,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "A",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "http",
+          "orderByTime": "ASC",
+          "policy": "raw",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "A_Current"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "B",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "http",
+          "orderByTime": "ASC",
+          "policy": "raw",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "B_Current"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "C",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "http",
+          "orderByTime": "ASC",
+          "policy": "raw",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "C_Current"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "D",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "http",
+          "orderByTime": "ASC",
+          "policy": "raw",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "D_Current"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "String Current",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "amp",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {
+        "Solar Energy": "yellow"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 16,
+        "y": 38
+      },
+      "hiddenSeries": false,
+      "id": 31,
+      "interval": "",
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": true,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "A",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "http",
+          "orderByTime": "ASC",
+          "policy": "raw",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "A_Power"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "B",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "http",
+          "orderByTime": "ASC",
+          "policy": "raw",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "B_Power"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "C",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "http",
+          "orderByTime": "ASC",
+          "policy": "raw",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "C_Power"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "D",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "http",
+          "orderByTime": "ASC",
+          "policy": "raw",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "D_Power"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "String Power",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "watt",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {
+        "Solar Energy": "yellow"
+      },
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 43
+      },
+      "hiddenSeries": false,
+      "id": 30,
+      "interval": "",
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": false,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "Solar Energy Year",
+          "color": "#FADE2A"
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "Solar Energy Year",
+          "groupBy": [
+            {
+              "params": [
+                "1d"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "0"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "http",
+          "orderByTime": "ASC",
+          "policy": "kwh",
+          "query": "SELECT sum(\"solar\") FROM \"kwh\".\"http\" WHERE (\"solar\" > 0) AND $timeFilter GROUP BY time(1d) fill(0) tz('America/Los_Angeles')",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "solar"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "solar",
+              "operator": ">",
+              "value": "0"
+            }
+          ],
+          "tz": "America/Los_Angeles"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": "12M",
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Solar Energy Year",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "kwatth",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     }
   ],
-  "refresh": false,
+  "refresh": "5m",
   "schemaVersion": 21,
   "style": "dark",
   "tags": [],
@@ -2359,8 +3203,8 @@
     "list": []
   },
   "time": {
-    "from": "now/d",
-    "to": "now/d"
+    "from": "now-24h",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -2379,5 +3223,5 @@
   "timezone": "browser",
   "title": "Powerwall",
   "uid": "RSDbqvRRz",
-  "version": 3
+  "version": 9
 }
