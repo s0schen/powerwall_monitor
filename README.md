@@ -40,7 +40,7 @@ bash tz.sh "America/Los_Angeles"
 * Start the docker containers
 
 ```bash
-	docker-compose -f powerwall.yml up -d
+    docker-compose -f powerwall.yml up -d
 ```
 
 ### InfluxDB
@@ -75,7 +75,7 @@ Note: the database queries are set to use `America/Los_Angeles` as timezone. Use
 
 * From `Configuration\Data Sources` add `Sun and Moon` database with:
   - Name: `Sun and Moon`
-  - Enter your latitude and longitude (some browsers will use your location)
+  - Enter your latitude and longitude. You can use this [web page](https://jasonacox.github.io/powerwall_monitor/location.html) to find your GPS location if you don't know).
   - Click "Save & test" button
 
 * From `Dashboard\Manage` (or `Dashboard\Browse`), select `Import`, and upload `dashboard.json`
